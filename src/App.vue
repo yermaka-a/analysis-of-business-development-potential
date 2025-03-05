@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import Header from "./components/MainHeader"
 </script>
 
 <template>
-    <h1>Здесь должно быть название</h1>
-
+    <Header/>
+    <router-view />
 </template>
 
 <style scoped>

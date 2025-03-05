@@ -1,18 +1,15 @@
-<template>
-  <div class="HomePage">
 
-  </div>
-</template>
-
-<script lang="ts">
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-  name: 'HomePage',
-
-});
+<script setup lang="ts">
+import MainInputForm from '../../components/MainInputForm';
 </script>
 
-<style lang="scss" scoped>
+<template>
+    <MainInputForm/>
+</template>
 
+
+<style lang="scss" scoped>
+  grid{
+    
+  }
 </style>
