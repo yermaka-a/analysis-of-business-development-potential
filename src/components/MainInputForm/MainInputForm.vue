@@ -27,7 +27,8 @@
 
 <style lang="scss" scoped>
    .form-container {
-            max-width: 400px;
+
+            min-width: 400px;
             margin: auto;
             padding: 20px;
             border: 1px solid #ccc;
