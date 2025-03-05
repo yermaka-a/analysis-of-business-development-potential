@@ -1,0 +1,40 @@
+# EditorConfig is awesome: https://EditorConfig.org
+
+# Корневой файл EditorConfig
+root = true
+
+# Общие настройки
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Настройки для файлов JavaScript и Vue
+[*.{js,jsx,vue}]
+indent_style = space
+indent_size = 2
+
+# Настройки для файлов TypeScript и Vue
+[*.{ts,tsx}]
+indent_style = space
+indent_size = 2
+
+# Настройки для файлов JSON
+[*.json]
+indent_style = space
+indent_size = 2
+
+# Настройки для файлов Markdown
+[*.md]
+trim_trailing_whitespace = false
+
+# Настройки для файлов CSS и SCSS
+[*.{css,scss}]
+indent_style = space
+indent_size = 2
+
+# Настройки для HTML
+[*.html]
+indent_style = space
+indent_size = 2
