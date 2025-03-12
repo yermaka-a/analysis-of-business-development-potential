@@ -6,7 +6,9 @@
 <div class="sampling-container">
         <h2>Принцип выборки</h2>
         <ul>
-            <li></li>
+            <li><input type="number" value="0"> Кол-во</li>
+            <li>С чем-то</li>
+            <li>Кол-во</li>
         </ul>
     </div>
 </template>
