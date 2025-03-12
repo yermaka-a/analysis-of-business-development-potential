@@ -6,7 +6,6 @@
 <template>
    <header class="header">
         <div class="logo">Автоматизированный анализ потенциала развития бизнеса</div>
-        <a href="#" class="menu-toggle">Меню выгрузки</a>
     </header>
 </template>
 
