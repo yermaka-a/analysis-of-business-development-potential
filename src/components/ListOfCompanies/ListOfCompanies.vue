@@ -1,15 +1,18 @@
 <script setup lang="ts">
 import { useStore } from "effector-vue/composition"
-import { $listCompanies, addCompanyToAnalyzeMap, updateIsAdded } from "@/store"
+import { $listCompanies, addCompanyToAnalyzeMap, updateIsAdded, fetchListFinancesReports } from "@/store"
 import type { ICompaniesList, IItemCompany } from "@/store/types"
+import MainButton from "@/components/MainButton"
+import { ref } from "vue"
 
 let listCompanies = useStore<ICompaniesList | null>($listCompanies)
-
+const isDisabled = ref(true)
 
 const addToAnalyze = (company: IItemCompany, index: number) => {
   if (!company.isAdded) {
-    updateIsAdded({inn: company.ИНН, index})
+    updateIsAdded({ inn: company.ИНН, index })
     addCompanyToAnalyzeMap(company)
+    isDisabled.value = false
   }
 }
 </script>
@@ -17,39 +20,45 @@ const addToAnalyze = (company: IItemCompany, index: number) => {
 <template>
   <div class="table-container">
     <table>
-      <caption>Информация о компаниях</caption>
-      <thead>
-        <tr>
-          <th>Анализ</th>
-          <th>№</th>
-          <th>ИНН</th>
-          <th>Наименование</th>
-          <th>ОГРН</th>
-          <th>Юридический адрес</th>
-          <th>Код региона</th>
-        </tr>
-      </thead>
-      <tbody v-if="listCompanies && listCompanies.data.Записи">
-        <tr v-for="(company, index) in listCompanies?.data.Записи" :key="company.ИНН">
-          <td class="value">
-            <button v-if="!company.isAdded" @click="addToAnalyze(company, index)" class="add-button"
-              id="addButton">+</button>
-              <button v-else class="check-button" id="checkButton">✔</button>
-          </td>
-          <td class="value">{{ index + 1 }}</td>
-          <td class="value">{{ company.ИНН }}</td>
-          <td>{{ company.НаимСокр }}<br>{{ company.НаимПолн }}</td>
-          <td class="value">{{ company.ОГРН }}</td>
-          <td>{{ company.ЮрАдрес }}</td>
-          <td class="value">{{ company.РегионКод }}</td>
-        </tr>
-      </tbody>
-      <tbody v-else>
-        <tr>
-          <td colspan="7" class="no-data-td">Нет данных для анализа</td>
-        </tr>
-      </tbody>
-    </table>
+      <caption>
+        <div class="caption-container">
+          <span>Информация о компаниях</span>
+          <MainButton @click="fetchListFinancesReports" :disabled="isDisabled">Сформировать финансовую отчетность для выбранных компаний</MainButton>
+        </div>
+      </caption>
+
+  <thead>
+    <tr>
+      <th>Анализ</th>
+      <th>№</th>
+      <th>ИНН</th>
+      <th>Наименование</th>
+      <th>ОГРН</th>
+      <th>Юридический адрес</th>
+      <th>Код региона</th>
+    </tr>
+  </thead>
+  <tbody v-if="listCompanies && listCompanies.data.Записи">
+    <tr v-for="(company, index) in listCompanies?.data.Записи" :key="company.ИНН">
+      <td class="value">
+        <button v-if="!company.isAdded" @click="addToAnalyze(company, index)" class="add-button"
+          id="addButton">+</button>
+        <button v-else class="check-button" id="checkButton">✔</button>
+      </td>
+      <td class="value">{{ index + 1 }}</td>
+      <td class="value">{{ company.ИНН }}</td>
+      <td>{{ company.НаимСокр }}<br>{{ company.НаимПолн }}</td>
+      <td class="value">{{ company.ОГРН }}</td>
+      <td>{{ company.ЮрАдрес }}</td>
+      <td class="value">{{ company.РегионКод }}</td>
+    </tr>
+  </tbody>
+  <tbody v-else>
+    <tr>
+      <td colspan="7" class="no-data-td">Нет данных для анализа</td>
+    </tr>
+  </tbody>
+  </table>
   </div>
 </template>
 
@@ -106,6 +115,7 @@ tr:hover {
 }
 
 caption {
+  position: relative;
   font-size: 1.5em;
   font-weight: bold;
   color: #2c3e50;
@@ -163,5 +173,10 @@ caption {
 
 .check-button:active {
   transform: scale(0.95);
+}
+
+.caption-container{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 </style>
