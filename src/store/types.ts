@@ -31,7 +31,19 @@ export interface ICompaniesList {
   }
 }
 
-type NumOrUndefned = number | undefined
+
+
+type NumOrUndefned = string | undefined
+
+export interface IYears {
+  [key: string]: {
+    "1300": NumOrUndefned
+    "1600": NumOrUndefned
+    "2110": NumOrUndefned
+    "2200": NumOrUndefned
+    "2400": NumOrUndefned
+  }
+}
 export interface IFinancesReport {
   "company": {
     "ОГРН": string,
@@ -44,14 +56,6 @@ export interface IFinancesReport {
     "РегионКод": string,
     "ЮрАдрес": string,
     "ОКВЭД": string,
-    data: {
-      [key: string]: {
-        "1300": NumOrUndefned
-        "1600": NumOrUndefned
-        "2110": NumOrUndefned
-        "2200": NumOrUndefned
-        "2400": NumOrUndefned
-      }
-    }
   }
+  data: IYears
 }

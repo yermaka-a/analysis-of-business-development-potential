@@ -1,6 +1,6 @@
 // api.js
 
-import { createEffect, createEvent, createStore } from 'effector';
+import { createEffect, createEvent, createStore, sample } from 'effector';
 import axios from 'axios';
 import config from '@/config';
 import type { ICompaniesList, ICompanyInfo, IFinancesReport, IItemCompany } from './types';
@@ -41,24 +41,8 @@ const $listCompanies = createStore<ICompaniesList | null>(null)
         state.data.Записи[companyData.index].isAdded = true
       }
     }
-    return {...state} as ICompaniesList
+    return { ...state } as ICompaniesList
   });
-
-
-const fetchListFinancesReports = createEffect(async () => {
-  console.log($listCompanies.getState())
-  // some logic might be there...
-  const response = await axios.get<IFinancesReport[]>(config.URL_FINANCES)
-  return response.data
-})
-
-const $listFinancesReports = createStore<IFinancesReport[] | null>(null)
-  .on(fetchListFinancesReports.doneData, (_, data) => data)
-  .on(fetchListFinancesReports.failData, (_, error) => {
-    console.warn(op, error.message)
-    return null
-  });
-
 
 
 const addCompanyToAnalyzeMap = createEvent<IItemCompany>()
@@ -70,6 +54,45 @@ const $mapCompaniesToAnalyze = createStore<Map<string, IItemCompany>>(new Map())
   }
 )
 
-export { fetchCompanyData, updateIsAdded, $company, fetchListCompanies, $listCompanies, fetchListFinancesReports, $listFinancesReports, $mapCompaniesToAnalyze, addCompanyToAnalyzeMap };
+const fetchListFinancesReports = createEffect(async () => {
+  console.log($listCompanies.getState())
+  // some logic might be there...
+  const response = await axios.get<IFinancesReport[]>(config.URL_FINANCES)
+  console.log(response.data)
+  return response.data
+})
+
+
+const parseYears = createEvent<IFinancesReport[] | null>()
+const $yearsSet = createStore<Set<string>>(new Set())
+  .on(parseYears, (_, FinancesReports) => {
+    let tempStore = new Set<string>()
+    const listFinancesReports = FinancesReports
+    if (listFinancesReports != null)
+      for (let report of listFinancesReports) {
+        for (const key in report.data) {
+          tempStore.add(key)
+        }
+      }
+
+    return tempStore
+  });
+
+
+const $listFinancesReports = createStore<IFinancesReport[] | null>(null)
+  .on(fetchListFinancesReports.doneData, (_, data) => data)
+  .on(fetchListFinancesReports.failData, (_, error) => {
+    console.warn(op, error.message)
+    return null
+  })
+
+sample({
+  clock: fetchListFinancesReports.doneData,
+  source: $listFinancesReports,
+  target: parseYears,
+})
+
+
+export { $yearsSet, fetchCompanyData, updateIsAdded, $company, fetchListCompanies, $listCompanies, fetchListFinancesReports, $listFinancesReports, $mapCompaniesToAnalyze, addCompanyToAnalyzeMap };
 
 
