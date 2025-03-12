@@ -6,7 +6,8 @@
 <div class="rating-container">
         <h2>Тип рейтинга</h2>
         <ul>
-            <li></li>
+            <li><input type="checkbox"> По прибыли</li>
+            <li><input type="checkbox">По рентабельности</li>
         </ul>
     </div>
 </template>
