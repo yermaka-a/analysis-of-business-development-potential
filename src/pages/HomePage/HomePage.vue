@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import ListOfCompanies from '../../components/ListOfCompanies/ListOfCompanies.vue';
-import MainInputForm from '../../components/MainInputForm';
+import MainAnalyzedCompaniesList from '@/components/MainAnalyzedCompaniesList';
+import ListOfCompanies from '@/components/ListOfCompanies';
+import MainInputForm from '@/components/MainInputForm';
 import MainRatingTypes from "@components/RatingTypes"
 import MainSamplingPrinciple from "@components/SamplingPrinciple"
+
 </script>
 
 <template>
@@ -11,9 +13,11 @@ import MainSamplingPrinciple from "@components/SamplingPrinciple"
       <MainInputForm />
       <ListOfCompanies />
     </div>
+
     <div class="config-container">
       <MainRatingTypes />
       <MainSamplingPrinciple />
+      <MainAnalyzedCompaniesList class="item3"/>
     </div>
   </main>
 </template>
@@ -39,6 +43,12 @@ main {
   width: 95%;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
   grid-gap: 10%;
+  column-gap: 20px;
+  row-gap: 20px;
+}
+.item3{
+  grid-column: span 2;
 }
 </style>
