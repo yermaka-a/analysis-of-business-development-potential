@@ -54,13 +54,7 @@ const $mapCompaniesToAnalyze = createStore<Map<string, IItemCompany>>(new Map())
   }
 )
 
-const fetchListFinancesReports = createEffect(async () => {
-  console.log($listCompanies.getState())
-  // some logic might be there...
-  const response = await axios.get<IFinancesReport[]>(config.URL_FINANCES)
-  console.log(response.data)
-  return response.data
-})
+
 
 
 const parseYears = createEvent<IFinancesReport[] | null>()
@@ -78,6 +72,14 @@ const $yearsSet = createStore<Set<string>>(new Set())
     return tempStore
   });
 
+  const fetchListFinancesReports = createEffect(async () => {
+    console.log($listCompanies.getState())
+    // some logic might be there...
+    const response = await axios.get<IFinancesReport[]>(config.URL_FINANCES)
+    console.log(response.data)
+    return response.data
+  })
+
 
 const $listFinancesReports = createStore<IFinancesReport[] | null>(null)
   .on(fetchListFinancesReports.doneData, (_, data) => data)
@@ -85,6 +87,7 @@ const $listFinancesReports = createStore<IFinancesReport[] | null>(null)
     console.warn(op, error.message)
     return null
   })
+
 
 sample({
   clock: fetchListFinancesReports.doneData,
