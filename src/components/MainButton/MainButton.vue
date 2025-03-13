@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { defineProps } from 'vue'
 import type { IProps } from './types';
 
 const { disabled, onClick, classes } = defineProps<IProps>()
