@@ -33,7 +33,7 @@ export interface ICompaniesList {
 
 
 
-type NumOrUndefned = string | undefined
+type NumOrUndefned = number | undefined
 
 export interface IYears {
   [key: string]: {
