@@ -1,6 +1,9 @@
 # 📊 analysis-of-business-development-potential
 
 > Веб-приложение для анализа конкурентной среды и оценки бизнес-потенциала на основе финансовых показателей
+![Vue](https://img.shields.io/badge/Vue-3-green?logo=vue.js)
+![Effector](https://img.shields.io/badge/Effector-22.0-blue)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-%233178C6)
 
 ## ✨ Основные функции
 - 🔍 Поиск компаний-конкурентов по **ОГРН** и **ОКВЭД**
