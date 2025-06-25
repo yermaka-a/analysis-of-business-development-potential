@@ -1,4 +1,4 @@
-# 📊 Business Potential Analyzer
+# 📊 analysis-of-business-development-potential
 
 > Веб-приложение для анализа конкурентной среды и оценки бизнес-потенциала на основе финансовых показателей
 
